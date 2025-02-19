@@ -55,7 +55,7 @@ sub label_action {
 	my $switch = "--${command}-label";
 
 	if( @labels == 0 ) {
-		say "No labels to remove";
+		say "No labels to $command";
 		return
 		};
 
