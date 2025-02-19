@@ -4,6 +4,9 @@ on:
         types:
             - opened
 
+env:
+    GH_TOKEN: ${{ github.token }}
+
 jobs:
   triage:
     permissions:
