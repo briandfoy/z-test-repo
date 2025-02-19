@@ -4,13 +4,12 @@ on:
         types:
             - opened
 
-environment: housekeeping
-
 env:
     GH_TOKEN: ${{ github.token }}
 
 jobs:
-  triage:
+  new_pull_request:
+    environment: housekeeping
     permissions:
       contents: read
       pull-requests: write
