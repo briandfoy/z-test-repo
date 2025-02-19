@@ -4,6 +4,8 @@ on:
         types:
             - opened
 
+environment: housekeeping
+
 env:
     GH_TOKEN: ${{ github.token }}
 
