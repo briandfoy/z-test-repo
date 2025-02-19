@@ -17,4 +17,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - run: |
-        perl .github/bin/labeler ${{ github.event.number }}
+        perl .github/bin/labeler ${{ github.event.number }} add
