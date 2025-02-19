@@ -17,17 +17,15 @@ if( $command eq 'add' ) {
 	verbose "Labels to add (before): " . join " ", @labels;
 
 	@labels = grep { ! exists $existing_labels->{$_} } @labels;
-	verbose "Labels to add (after): " . join " ", @labels;
 	}
 elsif( $command eq 'remove' ) {
 	@labels = get_default_labels_to_remove() if @labels == 0;
 	verbose "Labels to remove (before): " . join " ", @labels;
 
 	@labels = grep { exists $existing_labels->{$_} } @labels;
-	verbose "Labels to remove (after): " . join " ", @labels;
-
-	remove_labels( $issue_no, @labels_to_remove );
 	}
+
+verbose "Labels to $command (after): " . join " ", @labels;
 
 label_action( $issue_no, $command, @labels );
 
