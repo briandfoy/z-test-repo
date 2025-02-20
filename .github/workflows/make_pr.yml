@@ -1,3 +1,5 @@
+# Under Settings/Actions/General/Workflow Permissions, you need to
+# check "Allow GitHub Actions to create and approve pull requests"
 name: Make PR
 on:
     schedule:
