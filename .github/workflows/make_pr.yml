@@ -8,7 +8,7 @@ permissions:
   issues: write
   pull-requests: write
 jobs:
-    update-ranges:
+    make-pr:
         runs-on: ubuntu-latest
         # create a environment named with this key
         # Repo > Settings > Environments
