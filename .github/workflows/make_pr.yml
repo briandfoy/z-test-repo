@@ -40,7 +40,6 @@ jobs:
               id: pull-request
               uses: peter-evans/create-pull-request@v6
               with:
-                token: ${{ env.GITHUB_TOKEN }}
                 assignees: briandfoy
                 labels: "Type: data update"
                 title: Data update
