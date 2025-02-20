@@ -19,13 +19,15 @@ jobs:
         env:
             CHANGES_PUSHED: 0
             TARGET_FILE: foo.txt
-            PR_BRANCH_NAME: target-branch
         steps:
             - uses: actions/checkout@v3
             - name: setup git config
               run: |
                 git config --global user.name "GitHub Actions Bot"
                 git config --global user.email "<>"
+            - name: make branch name
+              run: |
+                echo "PR_BRANCH_NAME=branch-$(date +%s) >> $GITHUB_ENV
             - name: Update module data
               id: update
               run: |
