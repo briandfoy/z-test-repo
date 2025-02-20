@@ -1,0 +1,57 @@
+name: Make PR
+on:
+    schedule:
+        - cron: "37 3 * * *"
+    workflow_dispatch:
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+jobs:
+    update-ranges:
+        runs-on: ubuntu-latest
+        # create a environment named with this key
+        # Repo > Settings > Environments
+        # Add a secret named ISSUES_GITHUB_TOKEN
+        # The secret value is a classic Github token with repo access
+        # Account > Settings > Developer Settings > Personal Access Tokens > Tokens (classic)
+        environment: action-pull-request
+        env:
+            CHANGES_PUSHED: 0
+            TARGET_FILE: foo.txt
+            PR_BRANCH_NAME: target-branch
+        steps:
+            - uses: actions/checkout@v3
+            - name: setup git config
+              run: |
+                git config --global user.name "GitHub Actions Bot"
+                git config --global user.email "<>"
+            - name: Update module data
+              id: update
+              run: |
+                date >> ${{env.TARGET_FILE}}
+            - name: Commit RangeMessage.xml
+              id: commit
+              run: |
+                git diff
+                git add ${{env.TARGET_FILE}}
+                git commit -m "${{ env.NEW_VERSION }} updated" ${{env.TARGET_FILE}}
+            - name: Create Pull Request
+              id: pull-request
+              uses: peter-evans/create-pull-request@v6
+              with:
+                token: ${{ env.GITHUB_TOKEN }}
+                assignees: briandfoy
+                labels: "Type: data update"
+                title: Data update
+                delete-branch: true
+                branch: ${{env.PR_BRANCH_NAME}}
+                base: master
+            - name: Merge the pull request
+              run: |
+                echo "Merging pull request <${{ steps.pull-request.outputs.pull-request-number }}>"
+                gh pr merge ${{ steps.pull-request.outputs.pull-request-number }} --admin --squash
+            - name: Clean up
+              continue-on-error: true
+              run: |
+                git push origin :${{env.PR_BRANCH_NAME}}
