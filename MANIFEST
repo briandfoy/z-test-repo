@@ -1,0 +1,19 @@
+Changes
+cooker_report.txt
+examples/placeholder.pl
+Foo-0.001_01/META.json
+Foo-0.001_01/META.yml
+foo.txt
+INSTALL.SKIP
+lib/Foo.pm
+LICENSE
+Makefile.PL
+MANIFEST			This list of files
+MANIFEST.SKIP
+README.md
+README.pod
+SECURITY.md
+t/load.t
+t/pod.t
+t/pod_coverage.t
+t/test_manifest
