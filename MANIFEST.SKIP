@@ -15,3 +15,4 @@ nytprof
 \A\.github\b
 \.gitattributes\b
 Foo-
+foo.txt
