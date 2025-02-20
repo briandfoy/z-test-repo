@@ -32,12 +32,12 @@ jobs:
               id: update
               run: |
                 date >> ${{env.TARGET_FILE}}
-            - name: Commit RangeMessage.xml
+            - name: Commit changes
               id: commit
               run: |
                 git diff
                 git add ${{env.TARGET_FILE}}
-                git commit -m "${{ env.NEW_VERSION }} updated" ${{env.TARGET_FILE}}
+                git commit -m "${{ env.TARGET_FILE }} updated" ${{env.TARGET_FILE}}
             - name: Create Pull Request
               id: pull-request
               uses: peter-evans/create-pull-request@v6
