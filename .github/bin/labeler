@@ -76,13 +76,6 @@ sub label_action {
 	}
 
 sub verbose {
-	#return unless $ENV{VERBOSE};
-	say STDOUT '::debug::', "STDOUT", "==debug==", @_;
-	say STDERR '::debug::', "STDERR", "==debug==", @_;
-
+	return unless $ENV{VERBOSE};
 	say STDOUT '::notice::', "STDOUT", "==notice==", @_;
-	say STDERR '::notice::', "STDERR", "==notice==", @_;
-
-	say STDOUT '::error::', "STDOUT", "==error==", @_;
-	say STDERR '::error::', "STDERR", "==error==", @_;
 	}
