@@ -2,8 +2,8 @@
 # check "Allow GitHub Actions to create and approve pull requests"
 name: Make PR
 on:
-    schedule:
-        - cron: "37 3 * * *"
+#    schedule:
+#        - cron: "37 3 * * *"
     workflow_dispatch:
 permissions:
   contents: write
