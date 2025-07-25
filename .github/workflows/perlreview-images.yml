@@ -1,0 +1,70 @@
+# brian's standard GitHub Actions Ubuntu config for Perl 5 modules
+# version 20250703.001
+# https://github.com/briandfoy/github_workflows
+# https://github.com/features/actions
+# This file is licensed under the Artistic License 2.0
+#
+# This uses the AUTOMATED_TESTING environment that you can set up
+# in your repo settings. Or not. It still works if it isn't defined.
+# In that environment, add whatever environment variables or secrets
+# that you want.
+#
+# Variables that you can set in the "automated_testing" environment:
+#
+# EXTRA_CPAN_MODULES  - extra arguments to the first call to cpan.
+#                       Just use EXTRA_CPANM_MODULES though. This is
+#                       here for legacy
+#
+# EXTRA_CPANM_MODULES - extra arguments to the first call to cpanm.
+#                       this is useful to install very particular
+#                       modules, such as DBD::mysql@4.050
+#
+# UBUNTU_EXTRA_APT_GET - extra packages to install before we start
+#
+# UBUNTU_EXTRA_CPANM_MODULES - extra arguments to the first call to cpanm
+#                       but only on Ubuntu. Other workflows won't use this.
+#                       this is useful to install very particular
+#                       modules, such as DBD::mysql@4.050
+
+---
+name: ubuntu
+
+# https://github.com/actions/checkout/issues/1590
+env:
+    ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
+
+# https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/using-concurrency
+concurrency:
+    group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref || github.run_id }}
+    cancel-in-progress: true
+
+permissions:
+    actions: write
+    contents: read
+
+on:
+    workflow_dispatch:
+
+jobs:
+    perl:
+        environment: automated_testing
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os:
+                    - ubuntu-latest
+                perl-version:
+                    - '5.40'
+        container:
+            image: perlreview/perl-${{ matrix.perl-version }}-modules
+        steps:
+            - uses: actions/checkout@v3
+            - name: git corrections
+              run: |
+                git config --global --add safe.directory "$(pwd)"
+            - name: Platform check
+              run: uname -a
+            - name: Perl version check
+              run: |
+                perl -V
+                perl -v | perl -0777 -ne 'm/(v5\.\d+)/ && print "PERL_VERSION=$1"' >> $GITHUB_ENV
