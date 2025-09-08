@@ -25,3 +25,6 @@ This is mostly proving that I can do it with a program.
 This one is tricky because GitHub has a trigger for "Closed", but you
 have to dig deeper to see why it was closed.
 
+## Other crazy things
+
+Sometimes I use this to test various automations before I try them on other repos.
