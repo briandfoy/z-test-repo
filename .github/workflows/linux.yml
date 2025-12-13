@@ -41,6 +41,7 @@ concurrency:
 permissions:
     actions: write
     contents: read
+    packages: read
 
 on:
     push:
@@ -83,7 +84,7 @@ jobs:
             matrix:
                 os:
                     - ubuntu-latest
-                perl-version: [ 30 ]
+                perl-version: [ 30 32 ]
         container:
             image: ghcr.io/briandfoy/5.${{ matrix.perl-version }}-modules-amd64
         steps:
