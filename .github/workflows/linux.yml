@@ -85,7 +85,7 @@ jobs:
                     - ubuntu-latest
                 perl-version: [ 30, 32, 34, 36, 38, 40, 42 ]
         container:
-            image: perlreview:perl-5.${{ matrix.perl-version }}-modules-amd64
+            image: perlreview/perl-5.${{ matrix.perl-version }}-modules-amd64
         steps:
             - uses: actions/checkout@v5
             - name: git corrections
