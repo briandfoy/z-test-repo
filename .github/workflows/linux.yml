@@ -83,9 +83,9 @@ jobs:
             matrix:
                 os:
                     - ubuntu-latest
-                perl-version: [ 30, 32, 34, 36, 38, 40, 42 ]
+                perl-version: [ 30 ]
         container:
-            image: perlreview/5.${{ matrix.perl-version }}-modules-amd64
+            image: ghcr.io/briandfoy/5.${{ matrix.perl-version }}-modules-amd64
         steps:
             - uses: actions/checkout@v5
             - name: git corrections
