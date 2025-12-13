@@ -84,7 +84,7 @@ jobs:
             matrix:
                 os:
                     - ubuntu-latest
-                perl-version: [ 30 32 ]
+                perl-version: [ 30, 32 ]
         container:
             image: ghcr.io/briandfoy/5.${{ matrix.perl-version }}-modules-amd64
         steps:
@@ -98,18 +98,7 @@ jobs:
               run: |
                 apt-get -y -o Acquire::Retries=5 update
                 apt-get -y -o Acquire::Retries=5 upgrade
-                apt-get -y -o Acquire::http::No-Cache=True -o Acquire::Retries=5 install \
-                    curl \
-                    jq \
-                    ${{ vars.UBUNTU_EXTRA_APT_GET }}
-
-                curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg --output /usr/share/keyrings/githubcli-archive-keyring.gpg
-                chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
-                echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-                apt -y -o Acquire::Retries=5 update
-                apt-get -y -o Acquire::http::No-Cache=True -o Acquire::Retries=5 install gh
-
-                git config --global --add safe.directory $(pwd)
+                apt-get -y -o Acquire::http::No-Cache=True -o Acquire::Retries=5 install ${{ vars.UBUNTU_EXTRA_APT_GET }}
             - name: Perl version check
               run: |
                 perl -V
