@@ -16,3 +16,5 @@ nytprof
 \.gitattributes\b
 Foo-
 foo.txt
+
+.downstream.json
