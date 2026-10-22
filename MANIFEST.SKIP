@@ -21,3 +21,4 @@ foo.txt
 
 .downstream.json
 cpan_tester_reports
+\.claude/
